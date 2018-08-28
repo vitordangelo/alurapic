@@ -1,14 +1,8 @@
-<div class="text-center mt-3 mb-3">
-  <form>
-    <i aria-hidden="true" class="fa fa-search mr-2"></i>
-    <input
-    class="rounded"
-    type="search"
-    placeholder="Pesquisa.."
-    autofocus
-    (keyup)="debouce.next($event.target.value)">
-  </form>
-</div>
+<app-search
+[value]="filter"
+  (typing)="filter = $event">
+
+</app-search>
 
 <app-photos [photos]="photos | filterByDescription: filter"></app-photos>
 
