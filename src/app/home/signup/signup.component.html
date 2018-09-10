@@ -2,10 +2,12 @@
 
 <form
   [formGroup]="signupForm"
+  (ngSubmit)="submit()"
   class="form mt-4">
 
   <div class="form-group">
     <input
+      #inputEmail
       formControlName="email"
       type="text"
       placeholder="Email"

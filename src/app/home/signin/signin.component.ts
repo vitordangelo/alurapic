@@ -30,6 +30,9 @@ export class SigninComponent implements OnInit {
     });
 
     this.title.setTitle('Teeeeste');
+
+    this.plataformDetectorService.isPlatformBroswer() &&
+      this.userNameInput.nativeElement.focus();
   }
 
   login() {
