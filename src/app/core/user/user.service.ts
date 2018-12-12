@@ -15,12 +15,13 @@ export class UserService {
   constructor(
     private tokenService: TokenService
   ) {
-      this.tokenService.getToken() &&
+      this.tokenService.hasToken() &&
         this.decodeAndNotify();
   }
 
   setToken(token: string) {
     this.tokenService.setToken(token);
+    this.decodeAndNotify();
   }
 
   getUser() {

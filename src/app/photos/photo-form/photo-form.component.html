@@ -1,24 +1,69 @@
 <div class="container">
-  <form class="row">
+  <form
+    [formGroup]="photoForm"
+    (submit)="upload()"
+    class="row">
     <div class="col-md-6 text-center">
-      <input type="file" accept="image/*">
+
+      <div
+        class="form-group"
+        *ngIf="!preview; else previewImage" >
+        <button
+          type="button"
+          (click)="fileInput.click()"
+          class="btn btn-primary">
+            <i class="fa fa-image fa-4x align-middle"></i>
+        </button>
+        <input
+          #fileInput
+          hidden
+          formControlName="file"
+          type="file"
+          (change)="file = $event.target.files[0]"
+          accept="image/*">
+          <app-vmessage
+            *ngIf="photoForm.get('file').errors?.required"
+            text="Please, select a photo">
+          </app-vmessage>
+      </div>
+
+      <ng-template
+        #previewImage>
+        <div class="text-center">
+          <app-photo
+            [url]="preview"
+            title="Previw">
+          </app-photo>
+        </div>
+      </ng-template>
     </div>
 
     <div class="col-md-6">
       <div class="form-group">
         <textarea
+          formControlName="description"
           class="form-control form-control-sm"
-          placeholder="photo description"></textarea>
+          placeholder="photo description">
+        </textarea>
+        <app-vmessage
+          *ngIf="photoForm.get('description').errors?.maxlength"
+          text="Max 300 length">
+        </app-vmessage>
       </div>
 
       <div class="form-group">
         <label class="text-muted">
           Allow comments
-          <input type="checkbox">
+          <input
+            formControlName="allowComments"
+            type="checkbox">
         </label>
       </div>
 
-      <button type="submit" class="btn btn-primary btn-block">
+      <button
+        [disabled]="photoForm.invalid"
+        type="submit"
+        class="btn btn-primary btn-block">
         Upload
       </button>
 
